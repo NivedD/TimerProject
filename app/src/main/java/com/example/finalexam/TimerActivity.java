@@ -26,6 +26,7 @@ public class TimerActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning = false;
     private long timeLeftInMillis; // Time left in milliseconds for countdown
+    private long initialTimeInMillis; // Store the initial time input by the user
 
     private DatabaseHelper databaseHelper;  // Database helper instance
 
@@ -61,7 +62,10 @@ public class TimerActivity extends AppCompatActivity {
             int minutes = Integer.parseInt(inputMinutes.getText().toString().isEmpty() ? "0" : inputMinutes.getText().toString());
             int seconds = Integer.parseInt(inputSeconds.getText().toString().isEmpty() ? "0" : inputSeconds.getText().toString());
 
-            timeLeftInMillis = (hours * 3600 + minutes * 60 + seconds) * 1000;
+            // Store the initial time input by the user
+            initialTimeInMillis = (hours * 3600 + minutes * 60 + seconds) * 1000;
+            timeLeftInMillis = initialTimeInMillis; // Start timer with the initial time
+
             if (timeLeftInMillis > 0) {
                 countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
                     @Override
@@ -103,7 +107,10 @@ public class TimerActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
         isTimerRunning = false;
-        timeLeftInMillis = 0;
+
+        // Reset time to the initial time or zero if no time was set
+        timeLeftInMillis = initialTimeInMillis > 0 ? initialTimeInMillis : 0;
+
         updateTimerDisplay();
         updateButtons();
     }
