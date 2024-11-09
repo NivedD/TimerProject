@@ -1,7 +1,10 @@
 package com.example.finalexam;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.format.DateFormat;
@@ -70,6 +73,9 @@ public class TimerActivity extends AppCompatActivity {
                         updateButtons();
                         showTimeUpDialog(); // Show "Time's up!" dialog when timer finishes
 
+                        // Play the selected sound
+                        playSound();
+
                         // Save the duration and the end time into SQLite
                         saveTimerData();
                     }
@@ -137,5 +143,33 @@ public class TimerActivity extends AppCompatActivity {
     private void openTimerHistory() {
         Intent intent = new Intent(TimerActivity.this, TimerHistoryActivity.class);
         startActivity(intent);
+    }
+
+    // Play the selected sound from SharedPreferences
+    private void playSound() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SoundPreferences", Context.MODE_PRIVATE);
+        int selectedSoundPosition = sharedPreferences.getInt("selectedSound", -1); // Default to -1 if no sound is selected
+
+        if (selectedSoundPosition != -1) {
+            int soundResId = getSoundResourceId(selectedSoundPosition);
+            if (soundResId != -1) {
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, soundResId);
+                mediaPlayer.start();
+            }
+        }
+    }
+
+    // Retrieve the corresponding sound resource ID
+    private int getSoundResourceId(int position) {
+        switch (position) {
+            case 0:
+                return R.raw.sound1; // Replace with actual sound resource IDs
+            case 1:
+                return R.raw.sound2;
+            case 2:
+                return R.raw.sound3;
+            default:
+                return -1;
+        }
     }
 }

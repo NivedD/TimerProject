@@ -41,6 +41,9 @@
         <activity android:name=".TimerHistoryActivity"
             android:exported="true"/>
 
+        <activity android:name=".SoundSettingsActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
