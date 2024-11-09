@@ -32,6 +32,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".TimerActivity"
+            android:label="Timer"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <activity android:name=".TimerHistoryActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
