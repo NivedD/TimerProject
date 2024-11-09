@@ -1,5 +1,6 @@
 package com.example.finalexam;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -17,7 +18,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private EditText inputHours, inputMinutes, inputSeconds;
     private TextView timerDisplay;
-    private Button startButton, pauseButton, resetButton;
+    private Button startButton, pauseButton, resetButton, historyButton;
 
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning = false;
@@ -37,6 +38,7 @@ public class TimerActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         pauseButton = findViewById(R.id.pauseButton);
         resetButton = findViewById(R.id.resetButton);
+        historyButton = findViewById(R.id.historyButton);
 
         // Initialize database helper
         databaseHelper = new DatabaseHelper(this);
@@ -44,6 +46,7 @@ public class TimerActivity extends AppCompatActivity {
         startButton.setOnClickListener(v -> startTimer());
         pauseButton.setOnClickListener(v -> pauseTimer());
         resetButton.setOnClickListener(v -> resetTimer());
+        historyButton.setOnClickListener(v -> openTimerHistory()); // Set up the history button
     }
 
     private void startTimer() {
@@ -129,5 +132,10 @@ public class TimerActivity extends AppCompatActivity {
 
         // Insert into SQLite database
         databaseHelper.insertTimerData(durationInMillis, endTime);
+    }
+
+    private void openTimerHistory() {
+        Intent intent = new Intent(TimerActivity.this, TimerHistoryActivity.class);
+        startActivity(intent);
     }
 }
