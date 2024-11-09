@@ -5,15 +5,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/soundSettingsTitle"
-        android:layout_width="wrap_content"
+    <!-- Toolbar for back button -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notification Sound Settings"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal" />
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="#ffffff"
+        android:elevation="4dp"/>
+
+
 
     <!-- List of sound options -->
     <ListView

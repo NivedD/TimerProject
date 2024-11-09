@@ -42,6 +42,7 @@
             android:exported="true"/>
 
         <activity android:name=".SoundSettingsActivity"
+            android:label="Notification Sound Settings"
             android:exported="true"/>
 
     </application>

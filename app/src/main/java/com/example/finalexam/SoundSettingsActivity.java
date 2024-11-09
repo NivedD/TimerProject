@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class SoundSettingsActivity extends AppCompatActivity {
 
@@ -64,6 +65,11 @@ public class SoundSettingsActivity extends AppCompatActivity {
 
         // Load previously saved sound preference
         loadSavedSound();
+
+        // Set up the back button in the action bar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void loadSavedSound() {
@@ -122,5 +128,16 @@ public class SoundSettingsActivity extends AppCompatActivity {
         if (mediaPlayer != null) {
             mediaPlayer.release();
         }
+    }
+
+    // Handle back button in the action bar
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Navigate back to TimerActivity when back button is pressed
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
